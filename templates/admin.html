@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | MyTech</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #050505;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-card {
+            width: 90%;
+            max-width: 400px;
+            padding: 40px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #00e5ff;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin: 20px 0;
+            box-sizing: border-box;
+            background: #080808;
+            color: white;
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 13px 25px;
+            border: none;
+            border-radius: 25px;
+            background: #00e5ff;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .error {
+            color: #ff5555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-card">
+
+        <h1>🔐 Admin</h1>
+
+        <p>Enter your password to view messages.</p>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST">
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

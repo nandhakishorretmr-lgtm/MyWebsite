@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TechFixHub | MyTech</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #050505;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 80px 10%;
+        }
+
+        .small-title {
+            color: #00e5ff;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(45px, 7vw, 80px);
+            margin-bottom: 25px;
+        }
+
+        .description {
+            max-width: 700px;
+            color: #aaa;
+            font-size: 19px;
+            line-height: 1.8;
+        }
+
+        .tech-card {
+            margin-top: 50px;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.05);
+        }
+
+        .tech-card h2 {
+            color: #00e5ff;
+            margin-bottom: 15px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .tags span {
+            padding: 8px 15px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            color: #ccc;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 14px 25px;
+            background: #00e5ff;
+            color: black;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+        .back-button:hover {
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+
+    <p class="small-title">MY PROJECT • 01</p>
+
+    <h1>👨‍🔧 TechFixHub</h1>
+
+    <p class="description">
+        TechFixHub is a technician services website that I built
+        while learning Python and Flask.
+    </p>
+
+    <div class="tech-card">
+
+        <h2>About the Project</h2>
+
+        <p class="description">
+            This project allows users to explore technician services
+            and interact with a modern web interface. It is one of
+            my projects for learning Python web development.
+        </p>
+
+        <div class="tags">
+            <span>Python</span>
+            <span>Flask</span>
+            <span>HTML</span>
+            <span>CSS</span>
+        </div>
+
+    </div>
+
+    <a href="/" class="back-button">
+        ← Back to MyTech
+    </a>
+
+</body>
+
+</html>

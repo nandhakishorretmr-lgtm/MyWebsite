@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Message Sent | MyTech</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #050505;
+            color: white;
+
+            font-family: Arial, sans-serif;
+            text-align: center;
+
+            overflow: hidden;
+        }
+
+        /* Background glow */
+
+        body::before {
+            content: "";
+            position: fixed;
+
+            width: 450px;
+            height: 450px;
+
+            background: #00e5ff;
+            border-radius: 50%;
+
+            filter: blur(180px);
+            opacity: 0.10;
+
+            top: -150px;
+            right: -100px;
+
+            pointer-events: none;
+        }
+
+        /* Success Card */
+
+        .success-card {
+            width: min(90%, 550px);
+
+            padding: 55px 40px;
+
+            background: rgba(255, 255, 255, 0.04);
+
+            border: 1px solid rgba(0, 229, 255, 0.25);
+
+            border-radius: 25px;
+
+            backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 0 30px rgba(0, 229, 255, 0.08),
+                0 20px 60px rgba(0, 0, 0, 0.5);
+
+            animation: appear 0.6s ease;
+        }
+
+        /* Check icon */
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+
+            margin: 0 auto 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 42px;
+
+            border-radius: 50%;
+
+            background: rgba(0, 229, 255, 0.08);
+
+            border: 1px solid rgba(0, 229, 255, 0.25);
+
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.12);
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+
+            color: #00e5ff;
+        }
+
+        .message {
+            color: #aaa;
+            font-size: 17px;
+            line-height: 1.7;
+            max-width: 430px;
+            margin: auto;
+        }
+
+        /* Back button */
+
+        .back-button {
+            display: inline-block;
+
+            margin-top: 30px;
+
+            padding: 14px 28px;
+
+            background: #00e5ff;
+            color: #050505;
+
+            text-decoration: none;
+
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            transition: 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 0 15px rgba(0, 229, 255, 0.5),
+                0 0 35px rgba(0, 229, 255, 0.2);
+        }
+
+        /* Animation */
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            .success-card {
+                padding: 45px 25px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .message {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="success-card">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h1>Message Sent!</h1>
+
+        <p class="message">
+            Thank you for contacting me.
+            Your message was received successfully.
+        </p>
+
+        <a href="/" class="back-button">
+            ← Back to Website
+        </a>
+
+    </div>
+
+</body>
+</html>
