@@ -51,7 +51,16 @@ init_db()
 @app.route("/")
 def home():
     return render_template("index.html")
-
+# Sitemap for Google Search Console
+@app.route("/sitemap.xml")
+def sitemap():
+    return """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://nandhakishor-mytech.onrender.com/</loc>
+    </url>
+</urlset>
+""", 200, {"Content-Type": "application/xml"}
 
 # -------------------------
 # TechFixHub page
