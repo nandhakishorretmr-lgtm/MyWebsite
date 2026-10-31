@@ -1,12 +1,26 @@
-from flask import Flask, render_template, request, session, redirect
+```python
+from flask import Flask, render_template, request, session, redirect, send_from_directory
 import sqlite3
+import os
 
 app = Flask(__name__)
 
 # Secret key for login sessions
-app.secret_key = "mytech-secret-key"
+# Set SECRET_KEY as an environment variable on Render.
+app.secret_key = os.environ.get("SECRET_KEY", "dev-only-change-this")
 
-DATABASE = "messages.db"
+DATABASE = os.path.join(app.root_path, "messages.db")
+
+
+# -------------------------
+# Google Search Console verification
+# -------------------------
+@app.route("/google5dae8ab8a16fd70d.html")
+def google_verification():
+    return send_from_directory(
+        app.root_path,
+        "google5dae8ab8a16fd70d.html"
+    )
 
 
 # -------------------------
@@ -26,6 +40,10 @@ def init_db():
 
     conn.commit()
     conn.close()
+
+
+# Create the table when Flask or Gunicorn loads this file.
+init_db()
 
 
 # -------------------------
@@ -49,20 +67,23 @@ def techfixhub():
 # -------------------------
 @app.route("/contact", methods=["POST"])
 def contact():
+    name = request.form.get("name", "").strip()
+    email = request.form.get("email", "").strip()
+    message = request.form.get("message", "").strip()
 
-    name = request.form.get("name")
-    email = request.form.get("email")
-    message = request.form.get("message")
+    if not name or not email or not message:
+        return "Please fill in all fields.", 400
 
     conn = sqlite3.connect(DATABASE)
 
-    conn.execute(
-        "INSERT INTO messages (name, email, message) VALUES (?, ?, ?)",
-        (name, email, message)
-    )
-
-    conn.commit()
-    conn.close()
+    try:
+        conn.execute(
+            "INSERT INTO messages (name, email, message) VALUES (?, ?, ?)",
+            (name, email, message)
+        )
+        conn.commit()
+    finally:
+        conn.close()
 
     return render_template("success.html")
 
@@ -72,19 +93,15 @@ def contact():
 # -------------------------
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
-
     if request.method == "POST":
+        password = request.form.get("password", "")
 
-        password = request.form.get("password")
-
-        if password == "MyTech@2026":
-
-            # Remember that the admin is logged in
+        # Set ADMIN_PASSWORD on Render before using this publicly.
+        if password == os.environ.get("ADMIN_PASSWORD", ""):
             session["admin_logged_in"] = True
-
             return redirect("/messages")
 
-        return "Wrong password!"
+        return "Wrong password!", 401
 
     return render_template("admin.html")
 
@@ -94,22 +111,21 @@ def admin():
 # -------------------------
 @app.route("/messages")
 def messages():
-
-    # Check if admin is logged in
     if not session.get("admin_logged_in"):
         return redirect("/admin")
 
     conn = sqlite3.connect(DATABASE)
 
-    messages = conn.execute(
-        "SELECT id, name, email, message FROM messages ORDER BY id DESC"
-    ).fetchall()
-
-    conn.close()
+    try:
+        stored_messages = conn.execute(
+            "SELECT id, name, email, message FROM messages ORDER BY id DESC"
+        ).fetchall()
+    finally:
+        conn.close()
 
     return render_template(
         "messages.html",
-        messages=messages
+        messages=stored_messages
     )
 
 
@@ -118,16 +134,13 @@ def messages():
 # -------------------------
 @app.route("/logout")
 def logout():
-
     session.clear()
-
     return redirect("/admin")
 
 
 # -------------------------
-# Start Flask
+# Start Flask locally
 # -------------------------
-init_db()
-
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
+```
