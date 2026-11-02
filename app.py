@@ -23,22 +23,50 @@ def google_verification():
 
 
 # -------------------------
+# Robots.txt for Google
+# -------------------------
+@app.route("/robots.txt")
+def robots():
+    return """User-agent: *
+Allow: /
+
+Sitemap: https://nandhakishor-mytech.onrender.com/sitemap.xml
+""", 200, {"Content-Type": "text/plain; charset=utf-8"}
+
+
+# -------------------------
+# Sitemap for Google Search Console
+# -------------------------
+@app.route("/sitemap.xml")
+def sitemap():
+    return """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://nandhakishor-mytech.onrender.com/</loc>
+    </url>
+</urlset>
+""", 200, {"Content-Type": "application/xml; charset=utf-8"}
+
+
+# -------------------------
 # Database setup
 # -------------------------
 def init_db():
     conn = sqlite3.connect(DATABASE)
 
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS messages (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            email TEXT NOT NULL,
-            message TEXT NOT NULL
-        )
-    """)
+    try:
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS messages (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                email TEXT NOT NULL,
+                message TEXT NOT NULL
+            )
+        """)
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+    finally:
+        conn.close()
 
 
 # Create the table when Flask or Gunicorn loads this file.
@@ -51,16 +79,7 @@ init_db()
 @app.route("/")
 def home():
     return render_template("index.html")
-# Sitemap for Google Search Console
-@app.route("/sitemap.xml")
-def sitemap():
-    return """<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://nandhakishor-mytech.onrender.com/</loc>
-    </url>
-</urlset>
-""", 200, {"Content-Type": "application/xml"}
+
 
 # -------------------------
 # TechFixHub page
